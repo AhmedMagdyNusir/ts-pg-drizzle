@@ -1,4 +1,5 @@
 import type { Config } from "drizzle-kit";
+import envConfig from "./src/config";
 
 const config: Config = {
   schema: "./src/database/schema/*",
@@ -6,8 +7,8 @@ const config: Config = {
   dialect: "postgresql",
   strict: true,
   dbCredentials: {
-    url: process.env.DB_URL as string,
-    ssl: process.env.DB_SSL === "true",
+    url: envConfig.require("DB_URL"),
+    ssl: envConfig.require("DB_SSL") === "true",
   },
 };
 

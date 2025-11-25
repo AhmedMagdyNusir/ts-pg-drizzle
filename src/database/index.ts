@@ -1,11 +1,8 @@
 import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { isProductionMode } from "@/utils/helpers";
+import config from "@/config";
 
-const pool = new Pool({
-  connectionString: process.env.DB_URL,
-  ssl: isProductionMode ? { rejectUnauthorized: false } : false,
-});
+const pool = new Pool({ connectionString: config.require("DB_URL") });
 
 async function checkDatabaseConnection() {
   try {
